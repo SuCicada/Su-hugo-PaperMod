@@ -1,1 +1,7 @@
-<img loading="lazy" src="{{ .Destination | safeURL }}" alt="{{ .Text }}" {{ with .Title}} title="{{ . }}" {{ end }} />
+{{ $src := "" }}
+{{ if strings.HasPrefix .Destination  "http" }}
+{{ $src = .Destination | safeURL }}
+{{ else }}
+{{$src = ( printf "../%s" (.Destination | safeURL)) }}
+{{ end }}
+<img loading="lazy" src="{{$src}}" alt="{{ .Text }}" {{ with .Title}} title="{{ . }}" {{ end }} />
